@@ -6,10 +6,14 @@ class_name ItemBehaviourData
 # -------------------
 # 我们规定：
 # 1. 物品行为类必须继承自ItemBehaviourData
-# 2. ItemBehaviourData类内的所有函数都需要按照如下的方式进行定义：
-#    func fuc_name(item : Item, character_from : Node, character_to : Node) -> Variant:
+# 2. ItemBehaviourData类内只需要实现一个函数use_item：
+#    func use_item(item : Item, character_from : Node, character_to : Node) -> Variant:
 #    	your code here
 #    	return 
 # -------------------
 
 @export var tag : Tag
+
+func use_item(item : Item, character_from : Node, character_to : Node) -> Variant:
+	push_error("ItemBehaviourData: use_item: 请在子类中实现use_item函数")
+	return 

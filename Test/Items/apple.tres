@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://8ur3yilusuwx"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://8ur3yilusuwx"]
 
+[ext_resource type="Script" uid="uid://cc4dbxs4dkmp5" path="res://Scripts/PackageManager/ItemBehaviourData.gd" id="1_bowfu"]
 [ext_resource type="Script" uid="uid://o4akd0wb6em7" path="res://Scripts/PackageManager/ItemData.gd" id="1_fy8wg"]
 [ext_resource type="Texture2D" uid="uid://bpms0nyo1uj6r" path="res://icon.svg" id="1_iuqkc"]
 [ext_resource type="Resource" uid="uid://b55i5bciuchhg" path="res://Test/Scripts/Behaviour/appleBehaviour_resource.tres" id="1_kisxt"]
@@ -14,5 +15,5 @@ tags = Array[ExtResource("2_iyraj")]([ExtResource("3_iyraj")])
 description = "这是苹果"
 image = ExtResource("1_iuqkc")
 max_stack = 99
-behaviour = ExtResource("1_kisxt")
+behaviours = Array[ExtResource("1_bowfu")]([ExtResource("1_kisxt")])
 metadata/_custom_type_script = "uid://o4akd0wb6em7"

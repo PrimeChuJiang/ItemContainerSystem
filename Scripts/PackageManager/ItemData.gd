@@ -22,4 +22,4 @@ class_name ItemData
 @export var max_stack : int = 99
 
 # 物品行为
-@export var behaviour : ItemBehaviourData
+@export var behaviours : Array[ItemBehaviourData] = []

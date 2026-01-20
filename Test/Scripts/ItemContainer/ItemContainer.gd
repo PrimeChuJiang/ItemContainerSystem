@@ -13,5 +13,4 @@ func _input(event):
 	if event is InputEventKey:
 		if event.pressed:
 			if event.keycode == KEY_SPACE:
-				var num = item_list[0].triger_behaviour("on_use", self, self);
-				print("use num: ", num)
+				item_list[0].use_item(self, self);
