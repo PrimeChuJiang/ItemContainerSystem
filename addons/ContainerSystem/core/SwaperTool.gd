@@ -13,7 +13,7 @@ static func swap_item(container_a : ItemContainer, container_b : ItemContainer, 
         container_b.add_item(item_a, index_b)
         container_a.remove_item_in_position(index_a, item_a.stack_count)
     else:
-        # Swap items
+        # Swap items 
         container_a.remove_item_in_position(index_a, item_a.stack_count)
         container_b.remove_item_in_position(index_b, item_b.stack_count)
         container_b.add_item(item_a, index_b)

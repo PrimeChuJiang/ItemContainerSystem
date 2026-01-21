@@ -2,11 +2,9 @@ extends ItemContainer
 
 class_name ItemContainerTest
 
-var apple = preload("res://Test/Items/apple.tres")
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var _apple = Item.new(apple)
+	var _apple = Item.new(load("res://Test/Items/apple.tres"))
 	item_list.append(_apple)
 
 func _input(event):

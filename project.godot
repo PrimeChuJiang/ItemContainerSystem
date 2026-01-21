@@ -14,3 +14,15 @@ config/name="PackageManager"
 run/main_scene="uid://681i1wvjco40"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+ItemContainerSystem="*res://addons/ContainerSystem/core/ContainerSystem.gd"
+
+[container_system]
+
+item_data_map="res://addons/ContainerSystem/templates/ItemDataMapTemplate.tres"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ContainerSystem/plugin.cfg")
