@@ -18,8 +18,8 @@ class_name ItemData
 # 物品图片
 @export var image : Texture2D = null
 
-# 物品最大堆叠层数
-@export var max_stack : int = 99
+# 物品最大堆叠层数，-1表示无限堆叠
+@export var max_stack : int = -1
 
 # 物品行为
 @export var behaviours : Array[ItemBehaviourData] = []

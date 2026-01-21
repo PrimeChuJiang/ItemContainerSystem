@@ -18,7 +18,9 @@ var item_list : Array[Item] = []
 # 容器名称
 @export var container_name : String = ""
 
+# 容器内物品变更信号，is_add表示是添加还是移除物品，index表示物品所在位置，item表示变更后的物品信息
 signal item_changed(is_add : bool, index: int, item: Item)
+# 容器大小变更信号，new_size表示新的容器大小
 signal size_changed(new_size : int)
 
 # 容器初始化函数
@@ -27,10 +29,10 @@ func initialize(_size : int = 0, _container_name : String = "", _description : S
 	self.description = _description
 	self.addable_tags = _addable_tags
 	self.item_list = _item_list
-	set_item_list_size(_size)
+	_set_item_list_size(_size)
 
 # 设置容器大小
-func set_item_list_size(new_size : int) -> bool:
+func _set_item_list_size(new_size : int) -> bool:
 	size = new_size
 	if not item_list.resize(size):
 		push_error("ItemContainer: set_item_list_size: 容器大小设置失败")
@@ -96,7 +98,7 @@ func can_add_item(item : Item , index : int = -1, check_tag : bool = false) -> i
 		var existing_item = item_list[index]
 		if existing_item.data.id == item.data.id:
 			# 如果是相同的id，那么我们查看是否有超出堆叠要求
-			if existing_item.stack_count + item.stack_count > existing_item.data.max_stack:
+			if item.get_max_stack() != -1 and item.get_max_stack() < existing_item.stack_count + item.stack_count:
 				push_error("ItemContainer: can_add_item: 物品", item, "堆叠数量超过最大堆叠数量")
 				return CAN_ADD_ITEM_STACK_ERROR
 			else: 
@@ -135,8 +137,12 @@ func add_item(item : Item, index : int = -1, check_tag : bool = false) -> int:
 		return can_add
 	if item_list[index] == null:
 		item_list[index] = item
+		# 触发信号
+		item_changed.emit(true, index, item_list[index])
 	else: 
 		item_list[index].stack_count += item.stack_count
+		# 触发信号
+		item_changed.emit(true, index, item_list[index])
 	return can_add
 
 # 删除指定位置的物品
@@ -149,8 +155,79 @@ func remove_item_in_position(index : int = -1, num : int = 1) -> int:
 	# 如果物品堆叠数量大于移除数量，那么我们只减少堆叠数量
 	if item_list[index].stack_count > num:
 		item_list[index].stack_count -= num
+		# 触发信号
+		item_changed.emit(false, index, item_list[index])
 	# 如果物品堆叠数量等于移除数量，那么我们直接移除物品
 	else:
 		item_list[index] = null
+		# 触发信号
+		item_changed.emit(false, index, item_list[index])
 	return CAN_REMOVE_ITEM_SUCCESS
 	
+# ---------------
+# 查看物品是否存在以及数量是否足够相关code注释
+# 200 - 物品存在，数量足够
+# 301 - 指定位置为空
+# 302 - 指定位置物品不同
+# 303 - 物品存在但数量不足
+# 304 - 指定索引超出容器大小
+# 305 - 容器内没有该物品
+
+const HAS_ITEM_SUCCESS = 200
+const HAS_ITEM_INDEX_NULL_ERROR = 301
+const HAS_ITEM_ID_CONFLICT_ERROR = 302
+const HAS_ITEM_NUM_ERROR = 303
+const HAS_ITEM_INDEX_OUT_OF_RANGE_ERROR = 304
+const HAS_ITEM_NOT_FOUND_ERROR = 305
+# ---------------
+
+# 查看容器内是否有指定物品
+func has_item(item : Item, index : int = -1, check_num : bool = false) -> int :
+	if index != -1:
+		# 检查索引是否超出容器大小
+		if index <0 or index >= size:
+			push_error("ItemContainer: has_item: 索引", index, "超出容器大小")
+			return HAS_ITEM_INDEX_OUT_OF_RANGE_ERROR
+		# 检查指定位置是否有物品
+		var existing_item = item_list[index]
+		if existing_item == null:
+			push_error("ItemContainer: has_item: 索引", index, "处为空")
+			return HAS_ITEM_INDEX_NULL_ERROR
+		# 检查物品id是否相同
+		if existing_item.data.id != item.data.id:
+			push_error("ItemContainer: has_item: 索引", index, "处的物品id为", existing_item.data.id, "，与指定物品id", item.data.id, "不同")
+			return HAS_ITEM_ID_CONFLICT_ERROR
+		# 如果需要检查数量，那么检查堆叠数量是否足够
+		if check_num:
+			if existing_item.stack_count < item.stack_count:
+				push_error("ItemContainer: has_item: 索引", index, "处的物品堆叠数量为", existing_item.stack_count, "，不足指定数量", item.stack_count)
+				return HAS_ITEM_NUM_ERROR
+		# 如果以上检查都通过，那么物品存在且数量足够
+		return HAS_ITEM_SUCCESS
+	else:
+		# 检查容器内是否有该物品
+		if item_list.find(item) == -1:
+			push_error("ItemContainer: has_item: 容器", self, "内没有物品", item)
+			return HAS_ITEM_NOT_FOUND_ERROR
+		var existing_item = item_list[index]
+		# 如果需要检查数量，那么检查堆叠数量是否足够
+		if check_num:
+			if item.stack_count > existing_item.stack_count:
+				push_error("ItemContainer: has_item: 容器", self, "内物品", item, "堆叠数量为", existing_item.stack_count, "，不足指定数量", item.stack_count)
+				return HAS_ITEM_NUM_ERROR
+		# 如果以上检查都通过，那么物品存在且数量足够
+		return HAS_ITEM_SUCCESS
+
+# 变更容器到指定大小
+func change_size(new_size : int) -> bool:
+	if _set_item_list_size(new_size):
+		size_changed.emit(new_size)
+		return true
+	return false
+
+# 获取容器内指定位置的物品
+func get_item_in_position(index : int) -> Item:
+	if index >= size or index < 0:
+		push_error("ItemContainer: get_item_in_position: 索引", index, "超出容器大小")
+		return null
+	return item_list[index]

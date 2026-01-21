@@ -39,7 +39,7 @@ func _triger_behaviour(func_name : String, character_from : Node, character_to :
 	if behaviours.size() > 0:
 		print_debug("触发物品行为：", func_name, "，物品：", self)
 		for behaviour in behaviours:
-			behaviour.call(func_name, self, character_from, character_to)
+			behaviour.use_item(self, character_from, character_to)
 	else :
 		push_error("Item: _triger_behaviour: 物品", self, "没有物品行为")
 	return null
