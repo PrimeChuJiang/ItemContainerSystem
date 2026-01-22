@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="TestBehaviourA" load_steps=2 format=3 uid="uid://dp4uljba5t4i"]
+
+[ext_resource type="Script" uid="uid://bs0vforvxnkp6" path="res://Resources/Scripts/test_behaviour_a.gd" id="1_3lnfv"]
+
+[resource]
+script = ExtResource("1_3lnfv")
+behaviour_cost = -1
+metadata/_custom_type_script = "uid://bs0vforvxnkp6"

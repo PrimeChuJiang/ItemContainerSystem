@@ -33,10 +33,13 @@ func initialize(_size : int = 0, _container_name : String = "", _description : S
 
 # 设置容器大小
 func _set_item_list_size(new_size : int) -> bool:
-	size = new_size
-	if not item_list.resize(size):
+	if new_size < 0:
+		push_error("ItemContainer: set_item_list_size: 容器大小不能为负数")
+		return false
+	if item_list.resize(new_size) != OK:
 		push_error("ItemContainer: set_item_list_size: 容器大小设置失败")
 		return false
+	size = new_size
 	return true
 
 # ---------------
@@ -86,7 +89,7 @@ func can_add_item(item : Item , index : int = -1, check_tag : bool = false) -> i
 	if index == -1 :
 		index = item_list.find(null)
 		if index == -1:
-			index = item_list.find(item)
+			index = find_position_by_id(item.data.id)
 			if index == -1:
 				push_error("ItemContainer: can_add_item: 容器", self, "没有空位置可以添加物品")
 				return CAN_ADD_ITEM_INDEX_ERROR
@@ -109,6 +112,16 @@ func can_add_item(item : Item , index : int = -1, check_tag : bool = false) -> i
 	# 如果物品所在位置为空，那么我们可以直接添加
 	else:
 		return CAN_ADD_ITEM_SUCCESS
+
+# 查找指定物品id的可用位置，返回第一个空位置或者是相同id的位置
+func find_position_by_id(item_id : int) -> int:
+	var index = -1
+	for i in range(size):
+		if item_list[i] == null and index == -1:
+			index = i
+		elif item_list[i] != null and item_list[i].data.id == item_id:
+			index = i
+	return index
 
 # 查看是否能够移除指定位置上的指定格数的物品
 func can_remove_item(index : int = -1, num : int = 1) -> int :
@@ -135,8 +148,12 @@ func add_item(item : Item, index : int = -1, check_tag : bool = false) -> int:
 	if can_add != CAN_ADD_ITEM_SUCCESS:
 		push_error("ItemContainer: add_item: 物品", item, "不能添加到容器，错误码：", can_add)
 		return can_add
+	if index == -1 :
+		index = find_position_by_id(item.data.id)
 	if item_list[index] == null:
 		item_list[index] = item
+		item.container = self
+		item.position_in_container = index
 		# 触发信号
 		item_changed.emit(true, index, item_list[index])
 	else: 
@@ -144,6 +161,10 @@ func add_item(item : Item, index : int = -1, check_tag : bool = false) -> int:
 		# 触发信号
 		item_changed.emit(true, index, item_list[index])
 	return can_add
+
+func add_item_by_itemdata(item_data: ItemData, index : int = -1, check_tag : bool = false, stack_count : int = 1) -> int :
+	return add_item(Item.new(item_data, self, index, stack_count), index, check_tag)
+	
 
 # 删除指定位置的物品
 func remove_item_in_position(index : int = -1, num : int = 1) -> int:

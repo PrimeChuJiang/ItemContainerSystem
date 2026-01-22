@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemDataMap" load_steps=5 format=3 uid="uid://d33etl6b8yll5"]
+
+[ext_resource type="Script" uid="uid://o4akd0wb6em7" path="res://addons/ContainerSystem/core/ItemData.gd" id="1_excyj"]
+[ext_resource type="Script" uid="uid://bkkomsw0k43v4" path="res://addons/ContainerSystem/core/ItemDataMap.gd" id="2_867uu"]
+[ext_resource type="Resource" uid="uid://d302gsenuyhgk" path="res://Resources/item_a.tres" id="2_b4for"]
+[ext_resource type="Resource" uid="uid://d3gxc3aafuttk" path="res://Resources/item_b.tres" id="3_o02ig"]
+
+[resource]
+script = ExtResource("2_867uu")
+item_data_map = Array[ExtResource("1_excyj")]([ExtResource("2_b4for"), ExtResource("3_o02ig")])
+metadata/_custom_type_script = "uid://bkkomsw0k43v4"

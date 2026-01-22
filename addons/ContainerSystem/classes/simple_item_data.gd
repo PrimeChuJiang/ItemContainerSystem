@@ -14,22 +14,23 @@ class SingleSimpleItemData:
 
 var item_save_datas : Array[SingleSimpleItemData] = []
 
-func load_from_save_data() -> Array[Item] :
-    var items : Array[Item] = []
-    for i in range(item_save_datas.size()):
-        var save_data : SingleSimpleItemData = item_save_datas[i]
-        if save_data != null:
-            var item_data := ItemContainerSystem.get_item_data_by_id(save_data.id)
-            if item_data != null:
-                var item := Item.new(item_data, save_data.count)
-                items.append(item)
-            else: 
-                push_error("ItemSaveData: create: 无法通过ID %d 获取物品模板数据" % save_data.id)
-                items.append(null)
-        else:
-            print("ItemSaveData: create: 第 %d 个保存数据为空" % i)
-            items.append(null)
-    return items
+# TODO: 保存下来的物品的数据加载我们将ItemContainer作为参数传递进来，然后直接在ItemContainer中进行Item的创建和添加
+# func load_from_save_data() -> Array[Item] :
+#     var items : Array[Item] = []
+#     for i in range(item_save_datas.size()):
+#         var save_data : SingleSimpleItemData = item_save_datas[i]
+#         if save_data != null:
+#             var item_data := ItemContainerSystem.get_item_data_by_id(save_data.id)
+#             if item_data != null:
+#                 var item := Item.new(item_data, save_data.count)
+#                 items.append(item)
+#             else: 
+#                 push_error("ItemSaveData: create: 无法通过ID %d 获取物品模板数据" % save_data.id)
+#                 items.append(null)
+#         else:
+#             print("ItemSaveData: create: 第 %d 个保存数据为空" % i)
+#             items.append(null)
+#     return items
 
 func save_to_save_data(items : Array[Item]) -> void:
     item_save_datas.clear()
