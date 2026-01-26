@@ -12,4 +12,5 @@ func _do_use_item(item : Item, character_from : Node, character_to : Node, cost 
 	print("TestBehaviourA: _do_use_item: 使用了物品:", item, "从角色:", character_from, "到角色:", character_to)
 	if cost != -1:
 		item.container.remove_item_in_position(item.position_in_container, cost)
+		item.container.add_item_by_itemdata(ItemContainerSystem.get_item_data_by_id(1))
 	return 
