@@ -23,3 +23,7 @@ class_name ItemData
 
 # 物品行为
 @export var behaviours : Array[ItemBehaviourData] = []
+
+# 重写 to_string 方法，方便打印调试
+func _to_string() -> String:
+    return "ItemData: id=" + str(id) + ", name=" + name + ", tags=" + str(tags) + ", description=" + description + ", image=" + str(image) + ", max_stack=" + str(max_stack)

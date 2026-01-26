@@ -14,7 +14,7 @@ class SingleSimpleItemData:
 
 var item_save_datas : Array[SingleSimpleItemData] = []
 
-# 从保存数据加载物品
+# 从最简数据加载物品
 func load_from_save_datas(item_container : ItemContainer) -> Array[Item] :
     var items : Array[Item] = []
     for i in range(item_save_datas.size()):
@@ -30,7 +30,7 @@ func load_from_save_datas(item_container : ItemContainer) -> Array[Item] :
             items.append(null)
     return items
 
-# 保存物品到保存数据
+# 保存物品到最简数据
 func save_to_save_datas(items : Array[Item]) -> void:
     item_save_datas.clear()
     for i in range(items.size()):
@@ -42,8 +42,6 @@ func save_to_save_datas(items : Array[Item]) -> void:
             item_save_datas.append(save_data)
         else:
             item_save_datas.append(null)
-
-# 保存数据到本地文件内
 
 # 重写 to_string 方法，方便打印调试
 func _to_string() -> String:
