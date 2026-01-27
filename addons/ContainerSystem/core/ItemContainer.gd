@@ -19,7 +19,7 @@ var item_list : Array[Item] = []
 @export var container_name : String = ""
 
 # TODO: 物品的变更除了正常情况下的信号外，还要支持对于插件来说非法，但是游戏内合法的信号，也就是需要将非法的所有物品当成一个列表参数，统一的触发
-
+signal illegal_items_changed(illegal_items : Array[Item])
 # 容器内物品变更信号，is_add表示是添加还是移除物品，index表示物品所在位置，item表示变更后的物品信息
 signal item_changed(is_add : bool, index: int, item: Item)
 # 容器大小变更信号，new_size表示新的容器大小

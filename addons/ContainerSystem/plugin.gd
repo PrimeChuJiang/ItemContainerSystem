@@ -3,7 +3,6 @@ extends EditorPlugin
 
 # 自定义项目设置的路径
 const ITEM_DATA_MAP_SETTING_PATH: String = "container_system/item_data_map"
-const ITEM_SINGLETON_CONTAINER_SETTING_PATH: String = "container_system/container_singleton"
 # 核心类的路径
 const ITEM_DATA_MAP_CLASS_PATH: String = "res://addons/ContainerSystem/core/ItemDataMap.gd"
 const ITEM_DATA_PATH: String = "res://addons/ContainerSystem/core/ItemData.gd"
@@ -38,9 +37,7 @@ func _exit_tree():
     # 2. 移除自定义项目设置
 	if ProjectSettings.has_setting(ITEM_DATA_MAP_SETTING_PATH):
 		ProjectSettings.set_setting(ITEM_DATA_MAP_SETTING_PATH, null)
-	if ProjectSettings.has_setting(ITEM_SINGLETON_CONTAINER_SETTING_PATH):
-		ProjectSettings.set_setting(ITEM_SINGLETON_CONTAINER_SETTING_PATH, null)
-	
+		
 	remove_autoload_singleton(AUTOLOAD_NAME)
 
 	# ProjectSettings.save()
@@ -93,17 +90,11 @@ func register_custom_project_settings() -> void:
 	# 延迟加载资源，避免在插件初始化时过早加载导致项目路径问题
 	var template_path = "res://addons/ContainerSystem/templates/ItemDataMapTemplate.tres"
 	ProjectSettings.set_setting(ITEM_DATA_MAP_SETTING_PATH, template_path)
-	ProjectSettings.set_setting(ITEM_SINGLETON_CONTAINER_SETTING_PATH, false)
 	# 注册自定义项目设置
 	var property_info = {
 		"name": ITEM_DATA_MAP_SETTING_PATH,
 		"type": TYPE_STRING,
 		"hint": PROPERTY_HINT_RESOURCE_TYPE,
 	}
-	var singleton_property_info = {
-		"name": ITEM_SINGLETON_CONTAINER_SETTING_PATH,
-		"type": TYPE_BOOL,
-		"hint": PROPERTY_HINT_FLAGS
-	}
+	
 	ProjectSettings.add_property_info(property_info)
-	ProjectSettings.add_property_info(singleton_property_info)
