@@ -47,15 +47,7 @@ addons/ContainerSystem/
 
 ### 1. 启用插件
 
-在 `project.godot` 中配置：
-
-```ini
-[autoload]
-ItemContainerSystem="*res://addons/ContainerSystem/core/ContainerSystem.gd"
-
-[container_system]
-item_data_map="res://Resources/test_item_data_map.tres"
-```
+下载该项目并将`addons`文件夹目录下的文件夹复制到你的项目的`addons`目录下并进入ProjectSettings内开启该插件
 
 ### 2. 创建容器并初始化
 
