@@ -18,12 +18,18 @@ config/icon="res://icon.svg"
 [autoload]
 
 ItemContainerSystem="*res://addons/ContainerSystem/core/ContainerSystem.gd"
+TagManager="*res://addons/ContainerSystem/core/TagManager.gd"
 
 [container_system]
 
-item_data_map="res://Resources/test_item_data_map.tres"
 container_singleton=false
+item_data_map="res://addons/ContainerSystem/templates/ItemDataMapTemplate.tres"
+tag_hierarchy="res://addons/ContainerSystem/templates/TagHierarchy.tres"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/ContainerSystem/plugin.cfg")
+
+[global_group]
+
+a/a=""

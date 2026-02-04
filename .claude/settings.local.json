@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(dir /s /b \"E:\\\\KimiLiu\\\\Godot_ContainerSystem\\\\addons\\\\ContainerSystem\\\\*.gd\")"
+    ]
+  }
+}

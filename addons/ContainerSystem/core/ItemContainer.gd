@@ -14,6 +14,11 @@ var item_empty_pos_map : Array[int] = [] # 空位置列表
 # 容器可添加的物品标签
 @export var addable_tags : Array[Tag] = []
 
+# 是否使用层级标签匹配 (默认 true)
+# true: 物品标签是容器允许标签的后代也可以匹配
+# false: 只有精确匹配才能通过
+@export var use_hierarchical_tags : bool = true
+
 # 容器大小
 @export var size : int = 0		
 
@@ -269,19 +274,36 @@ const CAN_REMOVE_ITEM_ID_NOT_FOUND_ERROR = 410
 
 # 检查物品标签是否合法
 func _check_item_tag(item: Item) -> int:
-	if item.data.tags.size() > 0:
-		var has_valid_tag = false
-		if addable_tags.size() > 0:
-			for tag in item.data.tags:
-				if tag in addable_tags:
-					has_valid_tag = true
-					break
-		if not has_valid_tag:
-			push_error("ItemContainer: can_add_item: 物品", item, "标签不在容器可添加的标签列表中")
-			return CAN_ADD_ITEM_TAG_CONTAIN_ERROR
-	else:
+	if item.data.tags.size() == 0:
 		push_error("ItemContainer: can_add_item: 物品", item, "没有标签")
 		return CAN_ADD_ITEM_TAG_LIST_ERROR
+
+	# 如果容器没有设置可添加标签限制，则允许所有物品
+	if addable_tags.size() == 0:
+		return CAN_ADD_ITEM_SUCCESS
+
+	var has_valid_tag = false
+
+	if use_hierarchical_tags:
+		# 层级匹配：物品标签匹配容器允许的标签或其祖先
+		for item_tag in item.data.tags:
+			for addable_tag in addable_tags:
+				if item_tag.matches_tag(addable_tag):
+					has_valid_tag = true
+					break
+			if has_valid_tag:
+				break
+	else:
+		# 旧式精确匹配
+		for tag in item.data.tags:
+			if tag in addable_tags:
+				has_valid_tag = true
+				break
+
+	if not has_valid_tag:
+		push_error("ItemContainer: can_add_item: 物品", item, "标签不在容器可添加的标签列表中")
+		return CAN_ADD_ITEM_TAG_CONTAIN_ERROR
+
 	return CAN_ADD_ITEM_SUCCESS
 
 # 查找指定物品id的可用位置信息
