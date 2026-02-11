@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2qhxk8pmv5yl"]
 
-[ext_resource type="Script" path="res://Scripts/item_tooltip.gd" id="1_tooltip"]
+[ext_resource type="Script" uid="uid://bt5uayja4g7tw" path="res://Scripts/item_tooltip.gd" id="1_tooltip"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tooltip"]
 bg_color = Color(0.1, 0.1, 0.15, 0.95)
@@ -56,4 +56,3 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.8, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "数量: 1 / 10"
-

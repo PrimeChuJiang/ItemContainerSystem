@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(find:*)",
-      "Bash(dir /s /b \"E:\\\\KimiLiu\\\\Godot_ContainerSystem\\\\addons\\\\ContainerSystem\\\\*.gd\")"
+      "Bash(dir /s /b \"E:\\\\KimiLiu\\\\Godot_ContainerSystem\\\\addons\\\\ContainerSystem\\\\*.gd\")",
+      "Bash(xargs cat:*)",
+      "Bash(ls -la \"E:\\\\KimiLiu\\\\Godot_ContainerSystem\\\\addons\\\\ContainerSystem\"\" 2>/dev/null | grep -E \".gd)",
+      "Bash(.tscn \")"
     ]
   }
 }
