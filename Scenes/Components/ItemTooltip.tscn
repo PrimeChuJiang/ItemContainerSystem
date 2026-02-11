@@ -45,6 +45,7 @@ text = "物品名称"
 layout_mode = 2
 
 [node name="DescLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 10)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 13
