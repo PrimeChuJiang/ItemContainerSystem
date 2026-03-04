@@ -24,7 +24,7 @@ TagManager="*res://addons/ContainerSystem/core/TagManager.gd"
 
 container_singleton=false
 item_data_map="res://addons/ContainerSystem/templates/ItemDataMapTemplate.tres"
-tag_hierarchy="res://addons/ContainerSystem/templates/TagHierarchy.tres"
+tag_hierarchy="res://Scenes/Tags/TagHierarchy.tres"
 
 [editor_plugins]
 

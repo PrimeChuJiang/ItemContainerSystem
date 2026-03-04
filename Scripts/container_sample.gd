@@ -88,7 +88,7 @@ func _connect_signals() -> void:
 
 # 添加物品A到背包
 func _on_add_item_a_pressed() -> void:
-	var item_data = ItemContainerSystem.get_item_data_by_id(0)
+	var item_data = ItemContainerSystem.get_item_data_by_id(&"apple")
 	if item_data != null:
 		# 背包添加物品需要检查Tag
 		var result = backpack_container.add_item_by_itemdata(item_data, -1, true, 1)
@@ -103,7 +103,7 @@ func _on_add_item_a_pressed() -> void:
 
 # 添加物品B到背包
 func _on_add_item_b_pressed() -> void:
-	var item_data = ItemContainerSystem.get_item_data_by_id(1)
+	var item_data = ItemContainerSystem.get_item_data_by_id(&"meat")
 	if item_data != null:
 		# 背包添加物品需要检查Tag
 		var result = backpack_container.add_item_by_itemdata(item_data, -1, true, 1)

@@ -9,7 +9,7 @@
 
 [resource]
 script = ExtResource("2_upaet")
-id = 1
+id = &"meat"
 name = "肉块"
 tags = Array[ExtResource("5_8ergd")]([ExtResource("3_meet")])
 description = "一块新鲜的肉，恢复大量生命值"

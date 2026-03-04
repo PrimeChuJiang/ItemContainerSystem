@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TagHierarchy" load_steps=5 format=3 uid="uid://c2xhwighg7cvg"]
+
+[ext_resource type="Script" uid="uid://ckx0cxgjxyq1l" path="res://addons/ContainerSystem/core/Tag.gd" id="1_fwa8u"]
+[ext_resource type="Script" uid="uid://c33ak48jpgbgi" path="res://addons/ContainerSystem/core/TagHierarchy.gd" id="2_ciw2p"]
+[ext_resource type="Resource" uid="uid://byeh7ypu4mrpd" path="res://Scenes/Tags/Tags/test1.tres" id="3_root1"]
+[ext_resource type="Resource" uid="uid://bpbfhav5qvp5g" path="res://Scenes/Tags/Tags/test2.tres" id="4_root2"]
+
+[resource]
+script = ExtResource("2_ciw2p")
+root_tags = Array[ExtResource("1_fwa8u")]([ExtResource("3_root1"), ExtResource("4_root2")])

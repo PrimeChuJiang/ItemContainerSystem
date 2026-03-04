@@ -9,7 +9,7 @@
 
 [resource]
 script = ExtResource("2_whpl0")
-id = 0
+id = &"apple"
 name = "苹果"
 tags = Array[ExtResource("5_7lb5p")]([ExtResource("3_fruit"), null])
 description = "一个红苹果，恢复少量生命值"

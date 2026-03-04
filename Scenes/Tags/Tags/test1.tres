@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Tag" load_steps=3 format=3 uid="uid://byeh7ypu4mrpd"]
+
+[ext_resource type="Script" uid="uid://ckx0cxgjxyq1l" path="res://addons/ContainerSystem/core/Tag.gd" id="1_n65dx"]
+[ext_resource type="Resource" uid="uid://cdfidm2sc5ceu" path="res://Scenes/Tags/Tags/test1.test3.tres" id="2_07jcc"]
+
+[resource]
+script = ExtResource("1_n65dx")
+name = "test1"
+child_tags = Array[ExtResource("1_n65dx")]([ExtResource("2_07jcc")])
